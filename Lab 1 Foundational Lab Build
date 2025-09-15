@@ -1,0 +1,77 @@
+Lab 1: Azure Environment Setup
+🎯 Objective
+
+The goal of this lab was to create a foundational Azure environment that will act as the baseline for upcoming security projects. This setup provides a controlled environment where I can practice building secure cloud infrastructure and layer additional security controls in future weeks (IAM, Sentinel, SIEM integration, Zero Trust, etc.).
+
+🛠️ Lab Tasks
+1. Azure Free Tier Account
+
+Signed up for the Azure Free Tier subscription.
+
+Verified access to baseline services (Resource Groups, VNets, VMs, NSGs).
+
+2. Resource Organization
+
+Created a Resource Group: CyberLab-RG.
+
+Used resource tagging (e.g., Environment=Lab, Owner=KennethJ) for better management and cost tracking.
+
+3. Virtual Network (VNet) Setup
+
+Deployed a Virtual Network: CyberLab-VNet (10.0.0.0/16).
+
+Created two subnets:
+
+Management Subnet (10.0.1.0/24): Used for administration tasks (Windows VM).
+
+Workload Subnet (10.0.2.0/24): Used for workloads and experiments (Linux VM).
+
+4. Virtual Machines (VMs)
+
+Windows Server 2022 VM: prepared for future Active Directory + Sysmon labs.
+
+Ubuntu Linux VM: prepared for logging agent deployment (Winlogbeat/Filebeat) and security monitoring.
+
+Used Standard_B1s size to remain within Free Tier eligibility.
+
+5. Network Security Groups (NSGs)
+
+Created an NSG for each subnet.
+
+Applied inbound rules with principle of least privilege:
+
+Allowed RDP (3389) to Windows VM only from my IP.
+
+Allowed SSH (22) to Linux VM only from my IP.
+
+Denied all other inbound traffic by default.
+
+🔐 Security Considerations
+
+Least Privilege: Inbound access restricted to a single trusted IP.
+
+Segmentation: Different subnets for management vs workload.
+
+Defense-in-Depth: Future labs will add monitoring (Azure Sentinel, Wazuh), identity hardening, and automated incident response.
+
+Tagging: Applied tags to track ownership and purpose of resources.
+
+📊 Architecture Diagram
+
+(Insert diagram here using Lucidchart, draw.io, or Excalidraw)
+
+Example:
+
+Client → Internet → Azure VNet  
+   ├── Management Subnet → Windows VM  
+   └── Workload Subnet → Linux VM  
+
+📸 Screenshots
+
+Resource Group overview (CyberLab-RG).
+
+VNet + subnet configuration.
+
+Windows + Linux VM deployments.
+
+NSG inbound rule configuration.
