@@ -1,0 +1,107 @@
+Lab 3: Conditional Access & Advanced Identity
+🎯 Objective
+
+The goal of this lab was to implement Conditional Access (CA) and Privileged Identity Management (PIM) in Azure Entra ID to strengthen identity security beyond basic RBAC and MFA. These features help enforce Zero Trust principles, ensuring that access is adaptive and sensitive accounts are protected against misuse.
+
+🛠️ Lab Tasks
+1. Conditional Access Policies
+
+I created Conditional Access (CA) policies to restrict access based on location and device compliance.
+
+Implementation Steps:
+
+Navigated to Azure AD → Security → Conditional Access → New Policy.
+
+Defined users/groups in scope: Applied policies to SecurityTeam group.
+
+Defined cloud apps: Scoped to Azure Portal and Azure Management APIs.
+
+Created policies:
+
+Block Legacy Authentication
+
+Condition: Any user.
+
+Control: Block sign-in if legacy authentication protocol is used.
+
+Location-Based Policy
+
+Condition: Block sign-in from outside my home country/region.
+
+Control: Require MFA for all non-trusted locations.
+
+Device Compliance Policy (simulation)
+
+Condition: Require device to be marked as compliant.
+
+Control: Block access if non-compliant.
+
+Testing:
+
+Verified SecurityAnalyst could not log in with legacy auth.
+
+Tested login from an untrusted IP (via VPN) and confirmed MFA was required.
+
+2. Privileged Identity Management (PIM)
+
+I configured Privileged Identity Management (PIM) for AdminUser to avoid always-on privileges. Instead of having permanent Owner access, PIM requires just-in-time (JIT) activation for sensitive roles.
+
+Implementation Steps:
+
+Navigated to Azure AD → Privileged Identity Management.
+
+Selected Azure AD roles and assigned AdminUser as eligible for Owner role.
+
+Configured PIM settings:
+
+Activation requires MFA.
+
+Activation time limited to 1 hour.
+
+Require justification when activating.
+
+Email notifications sent to SecurityTeam when privileges are activated.
+
+Tested by signing in as AdminUser, activating Owner role, and confirming access was granted only during the activation window.
+
+🔐 Security Considerations
+
+Zero Trust: Conditional Access enforces adaptive controls, requiring MFA when risk conditions are detected.
+
+Defense in Depth: Blocking legacy authentication prevents attackers from bypassing modern auth controls.
+
+Least Privilege: PIM reduces standing privileges, lowering the risk of credential theft leading to permanent admin compromise.
+
+Accountability: PIM logging provides visibility into when, why, and by whom elevated roles were used.
+
+📊 Architecture / Workflow Diagram
+
+(Insert diagram here showing CA & PIM workflows)
+
+Example:
+
+User Login → Conditional Access → MFA? Device Compliant? Location Trusted?  
+   ├── Yes → Access granted  
+   └── No → Access blocked or MFA enforced  
+
+Privileged User (AdminUser) → PIM → Request Role → MFA + Justification → Temporary Access  
+
+📸 Screenshots
+
+Conditional Access policy configuration.
+
+Policy testing results (blocked sign-in / MFA prompt).
+
+PIM role assignment screen.
+
+PIM activation workflow.
+
+✅ Key Takeaways
+
+Implemented Conditional Access policies to secure logins based on context (location, device, legacy protocols).
+
+Strengthened privileged account security by enabling just-in-time (JIT) access with PIM.
+
+Reduced exposure to credential theft and insider risk by removing always-on administrative rights.
+
+Positioned the environment for further Zero Trust enhancements with monitoring and automation in upcoming labs.
