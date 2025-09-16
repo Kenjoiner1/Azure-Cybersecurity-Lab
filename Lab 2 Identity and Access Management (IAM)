@@ -1,0 +1,87 @@
+# Week 2: Identity & Access Management (IAM) Lab
+
+## 🎯 Objective
+
+The purpose of this lab was to strengthen the security of the Azure environment by implementing **Identity & Access Management (IAM)** best practices using **Azure Entra ID (formerly Azure AD)**. Identity is the new security perimeter in cloud environments, so this lab focused on creating users, groups, and roles; enforcing Role-Based Access Control (RBAC); and configuring Multi-Factor Authentication (MFA) and Self-Service Password Reset (SSPR).
+
+---
+
+## 🛠️ Lab Tasks
+
+### 1. Users
+
+* Created three distinct **test users** in Azure Entra ID:
+
+  * `AdminUser` – intended for privileged operations.
+  * `SecurityAnalyst` – for monitoring and investigation tasks.
+  * `TestUser` – for validating policies and simulating a standard user.
+
+### 2. Groups
+
+* Created the following **groups** to manage access at scale:
+
+  * `SecurityTeam` – for administrators and security engineers.
+  * `Developers` – for application and workload development roles.
+
+### 3. RBAC (Role-Based Access Control)
+
+* Applied **role assignments** at the **Resource Group level** (`CyberLab-RG`).
+* RBAC mapping:
+
+  * `SecurityTeam` → **Contributor** role (modify resources).
+  * `Developers` → **Reader** role (read-only access).
+  * `AdminUser` retained **Owner** role for lab administration.
+
+### 4. Multi-Factor Authentication (MFA)
+
+* Enabled **MFA** for `AdminUser` and `SecurityAnalyst` accounts.
+* Tested login workflows to validate that MFA was enforced.
+
+### 5. Self-Service Password Reset (SSPR)
+
+* Enabled **SSPR** for the `SecurityTeam` group.
+* Configured authentication methods (e.g., phone number + secondary email).
+* Tested password reset process from a user perspective.
+
+---
+
+## 🔐 Security Considerations
+
+* **Principle of Least Privilege (PoLP):** RBAC roles were scoped to the **resource group** level instead of the subscription level to minimize overexposure.
+* **Scalability:** Assigning roles to **groups** (not individual users) allows easier and more consistent access control.
+* **Zero Trust Alignment:** MFA ensures stronger protection against compromised credentials.
+* **Operational Efficiency:** SSPR reduces dependency on administrators and enhances user experience.
+
+---
+
+## 📊 IAM Architecture Diagram
+
+*(Insert diagram here using Lucidchart, draw\.io, or Excalidraw)*
+
+Example:
+
+```
+[Users] → [Groups] → [Roles] → [Resource Group]
+   AdminUser → SecurityTeam → Contributor → CyberLab-RG
+   SecurityAnalyst → SecurityTeam → Contributor → CyberLab-RG
+   TestUser → Developers → Reader → CyberLab-RG
+```
+
+---
+
+## 📸 Screenshots
+
+* User creation in Entra ID.
+* Group creation + membership assignment.
+* RBAC role assignments at `CyberLab-RG`.
+* MFA policy setup + test login.
+* SSPR configuration + password reset workflow.
+
+---
+
+## ✅ Key Takeaways
+
+* Learned how to manage **users, groups, and roles** effectively in Azure Entra ID.
+* Reinforced the importance of **least privilege** by scoping RBAC at the correct level.
+* Improved security posture with **MFA** while enhancing usability with **SSPR**.
+* Established a stronger identity foundation for the next lab on **security monitoring with Azure Sentinel**.
